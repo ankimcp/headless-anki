@@ -1,0 +1,9 @@
+services:
+  anki:
+    build: .
+    volumes:
+      - ./data:/data
+    ports:
+      - "5900:5900"
+    environment:
+      - QT_QPA_PLATFORM=vnc
