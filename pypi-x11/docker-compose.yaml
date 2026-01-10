@@ -1,6 +1,6 @@
 services:
   anki:
-    build: .
+    image: headless-anki:x11-1.0.0
     volumes:
       - ./data:/data
     ports:

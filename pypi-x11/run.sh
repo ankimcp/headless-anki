@@ -1,2 +1,2 @@
 #!/bin/bash
-docker compose build --no-cache && docker compose up
+docker build -t headless-anki:x11-1.0.0 . && docker compose up

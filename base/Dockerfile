@@ -29,12 +29,6 @@ RUN uv pip install --system aqt==${ANKI_VERSION}
 # Create anki user
 RUN useradd -m anki
 
-# Anki data with pre-configured profile (skips first-run wizard)
-RUN mkdir -p /data/addons21
-COPY data/prefs21.db /data/prefs21.db
-RUN chown -R anki /data
-VOLUME /data
-
 ENV QMLSCENE_DEVICE=softwarecontext
 ENV FONTCONFIG_PATH=/etc/fonts
 ENV QT_XKB_CONFIG_ROOT=/usr/share/X11/xkb

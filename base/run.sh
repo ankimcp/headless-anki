@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t headless-anki:base .
+docker build --no-cache -t headless-anki:base-1.0.0 .
