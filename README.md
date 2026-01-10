@@ -31,6 +31,16 @@ cd pypi-x11-addons
 ./run-addon.sh
 ```
 
+AnkiConnect (2055492159) is auto-patched to bind to `0.0.0.0` for external access.
+
+## Ports
+
+| Port | Service |
+|------|---------|
+| 5900 | VNC |
+| 8765 | AnkiConnect |
+| 3141 | Anki MCP Server |
+
 ## Credits
 
 Inspired by [ThisIsntTheWay/headless-anki](https://github.com/ThisIsntTheWay/headless-anki).

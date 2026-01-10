@@ -19,7 +19,12 @@ RUN ANKI_VER=$(echo $ANKI_VERSION | tr -d '.') && \
             curl -sL -o /tmp/$id.zip "https://ankiweb.net/shared/download/$id?v=2.1&p=$ANKI_VER" && \
             mkdir -p /data/addons21/$id && \
             unzip -q /tmp/$id.zip -d /data/addons21/$id/ && \
-            rm /tmp/$id.zip; \
+            rm /tmp/$id.zip && \
+            if [ "$id" = "2055492159" ]; then \
+                echo "Patching AnkiConnect to bind to all interfaces" && \
+                jq '.webBindAddress = "0.0.0.0"' /data/addons21/$id/config.json > /tmp/config.json && \
+                mv /tmp/config.json /data/addons21/$id/config.json; \
+            fi; \
         done; \
     fi
 
