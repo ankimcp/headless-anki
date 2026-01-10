@@ -1,31 +1,34 @@
 # Headless Anki
 
-Minimal headless Anki Docker images. No plugins, no authentication - just Anki.
+Minimal headless Anki Docker images. No authentication - just Anki.
 
-## Variants
+## Images
 
-| Variant | VNC | Window Manager | Use Case |
-|---------|-----|----------------|----------|
-| `pypi/` | Qt VNC (basic) | No | Headless automation |
-| `pypi-x11/` | x11vnc + openbox | Yes | Debugging with full GUI |
+| Image | Tag | Description |
+|-------|-----|-------------|
+| `base/` | `headless-anki:base-1.0.0` | Base image with Anki + dependencies |
+| `pypi/` | `headless-anki:pypi-1.0.0` | Offscreen mode |
+| `pypi-x11/` | `headless-anki:x11-1.0.0` | X11 + VNC + openbox |
+| `pypi-x11-addons/` | `headless-anki:addons-1.0.0` | X11 + VNC + addon support |
 
 ## Quick Start
 
 ```bash
-cd pypi      # or pypi-x11
-./run.sh
+# Build base first
+cd base && ./run.sh
+
+# Then build and run variant
+cd ../pypi-x11 && ./run.sh
 ```
 
 Connect VNC to `localhost:5900`.
 
-## Building
+## Addons
 
 ```bash
-cd pypi
-docker build -t headless-anki:latest .
-
-# Specific version (any from 2.1.24 to latest)
-docker build --build-arg ANKI_VERSION=25.9.2 -t headless-anki:latest .
+cd pypi-x11-addons
+# Edit ADDON_IDS in run-addon.sh
+./run-addon.sh
 ```
 
 ## Credits

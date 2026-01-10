@@ -5,3 +5,5 @@ services:
       - ./data:/data
     ports:
       - "5900:5900"
+      - "8765:8765"  # AnkiConnect
+      - "3141:3141"  # Anki MCP Server
