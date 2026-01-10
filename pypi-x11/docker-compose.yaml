@@ -1,0 +1,7 @@
+services:
+  anki:
+    build: .
+    volumes:
+      - ./data:/data
+    ports:
+      - "5900:5900"
