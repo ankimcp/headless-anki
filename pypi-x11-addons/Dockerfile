@@ -1,15 +1,7 @@
-FROM headless-anki:base-1.0.0
+FROM headless-anki:x11-1.0.0
 
 ARG ANKI_VERSION=25.9.2
 ARG ADDON_IDS=""
-
-RUN apt update && apt install --no-install-recommends -y \
-        xvfb x11vnc openbox \
-        && rm -rf /var/lib/apt/lists/*
-
-# Anki data with pre-configured profile
-RUN mkdir -p /data/addons21
-COPY data/prefs21.db /data/prefs21.db
 
 # Install addons if specified (version format: 25.9.2 -> 250902)
 RUN ANKI_VER=$(echo $ANKI_VERSION | tr -d '.') && \
@@ -26,17 +18,5 @@ RUN ANKI_VER=$(echo $ANKI_VERSION | tr -d '.') && \
                 mv /tmp/config.json /data/addons21/$id/config.json; \
             fi; \
         done; \
-    fi
-
-RUN chown -R anki /data
-VOLUME /data
-
-COPY startup.sh /startup.sh
-RUN chmod +x /startup.sh
-
-ENV DISPLAY=:99
-ENV QTWEBENGINE_DISABLE_SANDBOX=1
-
-EXPOSE 5900
-
-CMD ["/startup.sh"]
+    fi && \
+    chown -R anki /data/addons21
