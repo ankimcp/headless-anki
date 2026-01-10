@@ -1,35 +1,33 @@
 # Headless Anki
 
-Minimal headless Anki Docker image. No plugins, no authentication - just Anki running in offscreen mode.
+Minimal headless Anki Docker images. No plugins, no authentication - just Anki.
 
-## Usage
+## Variants
+
+| Variant | VNC | Window Manager | Use Case |
+|---------|-----|----------------|----------|
+| `pypi/` | Qt VNC (basic) | No | Headless automation |
+| `pypi-x11/` | x11vnc + openbox | Yes | Debugging with full GUI |
+
+## Quick Start
 
 ```bash
-docker run -d -v $(pwd)/data:/data headless-anki:latest
+cd pypi      # or pypi-x11
+./run.sh
 ```
 
-With VNC for debugging:
-```bash
-docker run -d -p 5900:5900 -e QT_QPA_PLATFORM="vnc" headless-anki:latest
-```
+Connect VNC to `localhost:5900`.
 
 ## Building
 
 ```bash
+cd pypi
 docker build -t headless-anki:latest .
 
-# Specific Anki version
-docker build --build-arg ANKI_VERSION=25.02.7 --build-arg QT_VERSION=6 -t headless-anki:latest .
+# Specific version (any from 2.1.24 to latest)
+docker build --build-arg ANKI_VERSION=25.9.2 -t headless-anki:latest .
 ```
-
-## Volumes
-
-- `/data` - Anki data directory (profiles, collections)
-
-## Environment Variables
-
-- `QT_QPA_PLATFORM` - Qt platform plugin (default: `offscreen`, use `vnc` for VNC access on port 5900)
 
 ## Credits
 
-Inspired by [ThisIsntTheWay/headless-anki](https://github.com/ThisIsntTheWay/headless-anki) which includes AnkiConnect plugin and additional features.
+Inspired by [ThisIsntTheWay/headless-anki](https://github.com/ThisIsntTheWay/headless-anki).

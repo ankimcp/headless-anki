@@ -4,46 +4,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Minimal headless Anki Docker image. No plugins, no authentication - just Anki running in offscreen/VNC mode. Designed for testing and public sharing.
+Minimal headless Anki Docker images using PyPI (`aqt` package). No plugins, no authentication - just Anki for testing.
 
 Inspired by [ThisIsntTheWay/headless-anki](https://github.com/ThisIsntTheWay/headless-anki).
+
+## Variants
+
+| Variant | Description |
+|---------|-------------|
+| `pypi/` | Basic Qt VNC, no window manager |
+| `pypi-x11/` | Xvfb + openbox + x11vnc, full window decorations |
 
 ## Commands
 
 ```bash
 # Build and run (no cache)
+cd pypi      # or pypi-x11
 ./run.sh
-
-# Or manually
-docker compose build --no-cache && docker compose up
 
 # Just run (uses cached build)
 docker compose up
 
-# Build with specific Anki version
-docker build --build-arg ANKI_VERSION=25.02.7 --build-arg QT_VERSION=6 -t headless-anki:latest .
+# Build specific version
+docker build --build-arg ANKI_VERSION=25.9.2 -t headless-anki:latest .
 ```
-
-## Key Files
-
-- `Dockerfile` - Minimal Anki installation on Ubuntu 22.04
-- `docker-compose.yaml` - Local dev setup with VNC enabled on port 5900
-- `run.sh` - Build from scratch and run
 
 ## Configuration
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ANKI_VERSION` | 25.02.7 | Anki release version (build arg) - see note below |
-| `QT_VERSION` | 6 | Qt version (build arg) |
-| `QT_QPA_PLATFORM` | offscreen | Qt platform - use `vnc` for VNC on port 5900 |
+| `ANKI_VERSION` | 25.9.2 | Any version from 2.1.24+ |
+| `QT_QPA_PLATFORM` | vnc/xcb | Qt platform (pypi uses vnc, pypi-x11 uses xcb) |
 
-**Note:** Anki 25.07+ switched to a launcher-based distribution and no longer publishes standalone binaries on GitHub. Use 25.02.7 or earlier for Docker builds.
+## Key Files
+
+- `pypi/Dockerfile` - Python 3.12 slim + uv + Qt VNC
+- `pypi-x11/Dockerfile` - Same + Xvfb + openbox + x11vnc
+- `*/data/prefs21.db` - Pre-configured profile (skips first-run wizard)
+- `*/startup.sh` - X11 startup script (pypi-x11 only)
 
 ## Volumes
 
 - `/data` - Anki data directory (profiles, collections)
 
-## CI/CD
+## VNC Access
 
-GitHub Actions workflow publishes to Docker Hub on push to main or release. Requires `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets.
+Both variants expose VNC on port 5900. Connect with any VNC client to `localhost:5900`.
