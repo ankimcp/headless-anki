@@ -1,6 +1,12 @@
-data/
 *.pyc
 __pycache__/
 .idea/
 .vscode/
-*.db
+
+# Anki runtime files (not prefs21.db which is needed)
+*.anki2
+*.colpkg
+*/data/logs/
+*/data/backups/
+*/data/addons21/
+*/data/User*/

@@ -1,5 +1,5 @@
-ARG BASE_TAG=base-v1.0.0
-FROM headless-anki:${BASE_TAG}
+ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.0.0
+FROM ${BASE_TAG}
 
 # Anki data with pre-configured profile (skips first-run wizard)
 RUN mkdir -p /data

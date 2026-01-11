@@ -60,19 +60,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Pull base image and tag locally for the build
-      - name: Pull and tag base image
-        run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:base-${{ needs.build-base.outputs.version }}
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:base-${{ needs.build-base.outputs.version }} headless-anki:base-${{ needs.build-base.outputs.version }}
-
       - uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.context }}
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.tag_prefix }}-${{ needs.build-base.outputs.version }}
           build-args: |
-            BASE_TAG=base-${{ needs.build-base.outputs.version }}
+            BASE_TAG=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:base-${{ needs.build-base.outputs.version }}
 
   release:
     runs-on: ubuntu-latest
