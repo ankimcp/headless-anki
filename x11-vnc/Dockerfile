@@ -1,4 +1,5 @@
-FROM headless-anki:base-1.0.0
+ARG BASE_TAG=base-v1.0.0
+FROM headless-anki:${BASE_TAG}
 
 RUN apt update && apt install --no-install-recommends -y \
         xvfb x11vnc openbox \

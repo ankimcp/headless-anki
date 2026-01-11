@@ -4,21 +4,22 @@ Minimal headless Anki Docker images. No authentication - just Anki.
 
 ## Images
 
-| Image | Tag | Description |
-|-------|-----|-------------|
-| `base/` | `headless-anki:base-1.0.0` | Base image with Anki + dependencies |
-| `pypi/` | `headless-anki:pypi-1.0.0` | Offscreen mode |
-| `pypi-x11/` | `headless-anki:x11-1.0.0` | X11 + VNC + openbox |
-| `pypi-x11-addons/` | `headless-anki:addons-1.0.0` | X11 + VNC + addon support |
+| Directory | Tag | Description |
+|-----------|-----|-------------|
+| `base/` | `base-vX.X.X` | Base image with Anki + dependencies |
+| `qt-vnc/` | `qt-vnc-vX.X.X` | Qt VNC plugin (lightweight) |
+| `x11-vnc/` | `x11-vnc-vX.X.X` | X11 + VNC + openbox (full desktop) |
+| `x11-vnc-addons/` | `addons-vX.X.X` | X11 + VNC + addon support (local only) |
 
 ## Quick Start
 
 ```bash
-# Build base first
-cd base && ./run.sh
+# Pull from GitHub Container Registry
+docker pull ghcr.io/ankimcp/headless-anki:x11-vnc-v1.0.0
 
-# Then build and run variant
-cd ../pypi-x11 && ./run.sh
+# Or build locally
+cd base && ./run.sh
+cd ../x11-vnc && ./run.sh
 ```
 
 Connect VNC to `localhost:5900`.
@@ -26,9 +27,9 @@ Connect VNC to `localhost:5900`.
 ## Addons
 
 ```bash
-cd pypi-x11-addons
-# Edit ADDON_IDS in run-addon.sh
-./run-addon.sh
+cd x11-vnc-addons
+docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.0.0 .
+docker compose up
 ```
 
 AnkiConnect (2055492159) is auto-patched to bind to `0.0.0.0` for external access.

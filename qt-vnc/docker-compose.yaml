@@ -1,6 +1,6 @@
 services:
   anki:
-    image: headless-anki:pypi-1.0.0
+    image: headless-anki:qt-vnc-v1.0.0
     volumes:
       - ./data:/data
     ports:

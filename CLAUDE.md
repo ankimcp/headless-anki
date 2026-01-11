@@ -10,29 +10,44 @@ Minimal headless Anki Docker images using PyPI (`aqt` package). No authenticatio
 
 Image inheritance chain (build order matters):
 ```
-base-1.0.0 → pypi-1.0.0 (offscreen)
-           → x11-1.0.0 (VNC) → addons-1.0.0
+base → qt-vnc (Qt VNC plugin)
+     → x11-vnc (Xvfb + openbox + x11vnc) → addons
 ```
 
 | Directory | Tag | Mode |
 |-----------|-----|------|
-| `base/` | `headless-anki:base-1.0.0` | Base only (no CMD) |
-| `pypi/` | `headless-anki:pypi-1.0.0` | `QT_QPA_PLATFORM=offscreen` |
-| `pypi-x11/` | `headless-anki:x11-1.0.0` | Xvfb + openbox + x11vnc |
-| `pypi-x11-addons/` | `headless-anki:addons-1.0.0` | X11 + addon install at build |
+| `base/` | `base-vX.X.X` | Base only (no CMD) |
+| `qt-vnc/` | `qt-vnc-vX.X.X` | `QT_QPA_PLATFORM=vnc` (lightweight) |
+| `x11-vnc/` | `x11-vnc-vX.X.X` | Xvfb + openbox + x11vnc (full desktop) |
+| `x11-vnc-addons/` | `addons-vX.X.X` | X11 + addon install at build |
 
-## Commands
+## Releases
+
+Push a git tag to trigger CI build and GitHub release:
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+This builds and pushes to ghcr.io:
+- `ghcr.io/ankimcp/headless-anki:base-v1.0.0`
+- `ghcr.io/ankimcp/headless-anki:qt-vnc-v1.0.0`
+- `ghcr.io/ankimcp/headless-anki:x11-vnc-v1.0.0`
+
+Note: `addons` is not built in CI (local only).
+
+## Local Development
 
 ```bash
 # Build base first (required)
 cd base && ./run.sh
 
 # Build and run a variant
-cd pypi-x11 && ./run.sh
+cd x11-vnc && ./run.sh
 
 # Build with addons
-docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-1.0.0 pypi-x11-addons
-docker compose -f pypi-x11-addons/docker-compose.yaml up
+cd x11-vnc-addons
+docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.0.0 .
+docker compose up
 ```
 
 ## Ports
@@ -57,4 +72,4 @@ AnkiConnect (ID 2055492159) is auto-patched to bind `0.0.0.0` for external acces
 
 - `base/Dockerfile` - Base image with all Qt/X11 deps (no prefs21.db)
 - `*/data/prefs21.db` - Pre-configured profile (skips first-run wizard)
-- `pypi-x11/startup.sh` - X11 bootstrap (Xvfb → openbox → x11vnc → anki)
+- `x11-vnc/startup.sh` - X11 bootstrap (Xvfb → openbox → x11vnc → anki)

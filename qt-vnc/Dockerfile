@@ -1,4 +1,5 @@
-FROM headless-anki:base-1.0.0
+ARG BASE_TAG=base-v1.0.0
+FROM headless-anki:${BASE_TAG}
 
 # Anki data with pre-configured profile (skips first-run wizard)
 RUN mkdir -p /data

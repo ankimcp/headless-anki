@@ -1,4 +1,5 @@
-FROM headless-anki:x11-1.0.0
+ARG X11_TAG=x11-vnc-v1.0.0
+FROM headless-anki:${X11_TAG}
 
 ARG ANKI_VERSION=25.9.2
 ARG ADDON_IDS=""
