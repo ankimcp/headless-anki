@@ -6,8 +6,11 @@ COPY data/prefs21.db /data/prefs21.db
 RUN chown -R anki /data
 VOLUME /data
 
+COPY startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
 USER anki
 
 ENV QT_QPA_PLATFORM="offscreen"
 
-CMD ["anki", "-b", "/data"]
+CMD ["/startup.sh"]

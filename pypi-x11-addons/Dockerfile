@@ -4,7 +4,7 @@ ARG ANKI_VERSION=25.9.2
 ARG ADDON_IDS=""
 
 # Install addons if specified (version format: 25.9.2 -> 250902)
-RUN ANKI_VER=$(echo $ANKI_VERSION | tr -d '.') && \
+RUN ANKI_VER=$(echo $ANKI_VERSION | awk -F. '{printf "%02d%02d%02d", $1, $2, $3}') && \
     if [ -n "$ADDON_IDS" ]; then \
         for id in $ADDON_IDS; do \
             echo "Installing addon: $id" && \

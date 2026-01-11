@@ -12,5 +12,9 @@ sleep 1
 x11vnc -display :99 -forever -nopw -rfbport 5900 &
 sleep 1
 
-# Start Anki
-exec anki -b /data
+# Start Anki (restart if it exits)
+while true; do
+    anki -b /data
+    echo "Anki exited, restarting in 2s..."
+    sleep 2
+done
