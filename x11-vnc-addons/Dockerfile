@@ -1,4 +1,4 @@
-ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.2.0
+ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.0.0
 FROM ${X11_TAG}
 
 ARG ANKI_VERSION=25.9.2
@@ -13,8 +13,6 @@ RUN ANKI_VER=$(echo $ANKI_VERSION | awk -F. '{printf "%02d%02d%02d", $1, $2, $3}
             mkdir -p /data/addons21/$id && \
             unzip -q /tmp/$id.zip -d /data/addons21/$id/ && \
             rm /tmp/$id.zip && \
-            echo "{\"name\":\"$id\",\"mod\":$(date +%s),\"update_enabled\":false,\"disabled\":false,\"conflicts\":[]}" \
-                > /data/addons21/$id/meta.json && \
             if [ "$id" = "2055492159" ]; then \
                 echo "Patching AnkiConnect to bind to all interfaces" && \
                 jq '.webBindAddress = "0.0.0.0"' /data/addons21/$id/config.json > /tmp/config.json && \
