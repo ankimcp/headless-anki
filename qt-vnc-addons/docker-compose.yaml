@@ -1,8 +1,10 @@
 services:
   anki:
-    image: headless-anki:qt-vnc-v1.2.0
+    image: headless-anki:qt-vnc-addons-v1.2.0
     volumes:
-      - ./data:/data
+      - ./data/prefs21.db:/data/prefs21.db
+      # Mount custom addons like this:
+      # - ./my-addon:/data/addons21/12345678
     ports:
       - "5900:5900"
       - "8765:8765"  # AnkiConnect

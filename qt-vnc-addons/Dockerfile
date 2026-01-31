@@ -1,5 +1,7 @@
-ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.2.0
-FROM ${X11_TAG}
+ARG QT_VNC_TAG=ghcr.io/ankimcp/headless-anki:qt-vnc-v1.2.0
+FROM ${QT_VNC_TAG}
+
+USER root
 
 ARG ANKI_VERSION=25.9.2
 ARG ADDON_IDS=""
@@ -23,3 +25,5 @@ RUN ANKI_VER=$(echo $ANKI_VERSION | awk -F. '{printf "%02d%02d%02d", $1, $2, $3}
         done; \
     fi && \
     chown -R anki /data/addons21
+
+USER anki
