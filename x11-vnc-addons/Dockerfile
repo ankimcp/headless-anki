@@ -1,10 +1,10 @@
-ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.0.0
+ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.2.1
 FROM ${X11_TAG}
 
-ARG ANKI_VERSION=25.9.2
+ARG ANKI_VERSION=25.9.4
 ARG ADDON_IDS=""
 
-# Install addons if specified (version format: 25.9.2 -> 250902)
+# Install addons if specified (version format: 25.9.4 -> 250904)
 RUN ANKI_VER=$(echo $ANKI_VERSION | awk -F. '{printf "%02d%02d%02d", $1, $2, $3}') && \
     if [ -n "$ADDON_IDS" ]; then \
         for id in $ADDON_IDS; do \

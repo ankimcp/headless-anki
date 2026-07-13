@@ -15,7 +15,7 @@ Minimal headless Anki Docker images. No authentication - just Anki.
 
 ```bash
 # Pull from GitHub Container Registry
-docker pull ghcr.io/ankimcp/headless-anki:x11-vnc-v1.0.0
+docker pull ghcr.io/ankimcp/headless-anki:x11-vnc-v1.2.1
 
 # Or build locally
 cd base && ./run.sh
@@ -28,7 +28,7 @@ Connect VNC to `localhost:5900`.
 
 ```bash
 cd x11-vnc-addons
-docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.0.0 .
+docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.2.1 .
 docker compose up
 ```
 
