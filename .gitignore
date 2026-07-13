@@ -2,6 +2,7 @@
 __pycache__/
 .idea/
 .vscode/
+.docs/
 
 # Anki runtime files (not prefs21.db which is needed)
 *.anki2
