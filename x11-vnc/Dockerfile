@@ -1,4 +1,4 @@
-ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.2.1
+ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.3.0
 FROM ${BASE_TAG}
 
 RUN apt update && apt install --no-install-recommends -y \

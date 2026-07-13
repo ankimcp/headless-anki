@@ -12,8 +12,8 @@ Connect VNC to `localhost:5900`.
 
 ## Build Args
 
-- `BASE_TAG` - Base image tag (default: base-v1.2.1)
+- `BASE_TAG` - Base image tag (default: base-v1.3.0)
 
 ```bash
-docker build --build-arg BASE_TAG=base-v1.2.1 -t headless-anki:qt-vnc-v1.2.1 .
+docker build --build-arg BASE_TAG=base-v1.3.0 -t headless-anki:qt-vnc-v1.3.0 .
 ```

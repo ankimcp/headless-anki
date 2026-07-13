@@ -1,6 +1,6 @@
 services:
   anki:
-    image: headless-anki:x11-vnc-v1.2.1
+    image: headless-anki:x11-vnc-v1.3.0
     volumes:
       - ./data:/data
     ports:

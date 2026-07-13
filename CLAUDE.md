@@ -16,7 +16,7 @@ base (python:3.12-slim + aqt + Qt/X11 deps)
         └── x11-vnc-addons  (addons baked in at build time)
 ```
 
-Each variant's Dockerfile takes a `BASE_TAG` (or `X11_TAG`) ARG defaulting to `ghcr.io/ankimcp/headless-anki:base-v1.2.1`. CI overrides this; locally it uses the default.
+Each variant's Dockerfile takes a `BASE_TAG` (or `X11_TAG`) ARG defaulting to `ghcr.io/ankimcp/headless-anki:base-v1.3.0`. CI overrides this; locally it uses the default.
 
 **qt-vnc vs x11-vnc**: qt-vnc uses Qt's built-in VNC QPA plugin (set via docker-compose env, Dockerfile itself sets `offscreen`). x11-vnc runs a real X server stack (Xvfb → openbox → x11vnc → anki) in `startup.sh`.
 
@@ -32,11 +32,11 @@ cd qt-vnc && ./run.sh
 
 # Build with addons
 cd x11-vnc-addons
-docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.2.1 .
+docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.3.0 .
 docker compose up
 ```
 
-Version tags are hardcoded to `v1.2.1` in `run.sh` and `docker-compose.yaml` files. When bumping versions, update these across all variant directories.
+Version tags are hardcoded to `v1.3.0` in `run.sh` and `docker-compose.yaml` files. When bumping versions, update these across all variant directories.
 
 ## Releases (CI)
 
@@ -59,7 +59,7 @@ Pushes to `ghcr.io/ankimcp/headless-anki:{variant}-{tag}`. The `addons` variant 
 
 Download URL: `https://ankiweb.net/shared/download/{id}?v=2.1&p={version_zero_padded}`
 
-Version is zero-padded with `%02d` per segment: `25.9.4` → `p=250904` (not `2594`).
+Version is zero-padded with `%02d` per segment: `26.5` → `p=260500` (not `265`).
 
 AnkiConnect (ID `2055492159`) is auto-patched via `jq` to set `webBindAddress` to `0.0.0.0`.
 
