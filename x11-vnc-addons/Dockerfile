@@ -1,4 +1,4 @@
-ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.3.0
+ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.4.0
 FROM ${X11_TAG}
 
 ARG ANKI_VERSION=26.5

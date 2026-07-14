@@ -9,7 +9,7 @@ X11 variant with addon support. Addons are downloaded from AnkiWeb during build.
 ./run.sh
 
 # With addons (build with addon IDs)
-docker build --build-arg ADDON_IDS="2055492159 1463041493" -t headless-anki:addons-v1.3.0 .
+docker build --build-arg ADDON_IDS="2055492159 1463041493" -t headless-anki:addons-v1.4.0 .
 docker compose up
 ```
 
@@ -17,7 +17,7 @@ docker compose up
 
 | Arg | Default | Description |
 |-----|---------|-------------|
-| `X11_TAG` | x11-vnc-v1.3.0 | Base X11 image tag |
+| `X11_TAG` | x11-vnc-v1.4.0 | Base X11 image tag |
 | `ANKI_VERSION` | 26.5 | Anki version (for addon download URL) |
 | `ADDON_IDS` | "" | Space-separated addon IDs from AnkiWeb |
 

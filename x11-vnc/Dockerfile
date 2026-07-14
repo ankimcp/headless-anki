@@ -1,8 +1,8 @@
-ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.3.0
+ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.4.0
 FROM ${BASE_TAG}
 
 RUN apt update && apt install --no-install-recommends -y \
-        xvfb x11vnc openbox \
+        tigervnc-standalone-server openbox \
         && rm -rf /var/lib/apt/lists/*
 
 # Anki data with pre-configured profile (skips first-run wizard)

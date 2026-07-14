@@ -1,4 +1,4 @@
-ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.3.0
+ARG BASE_TAG=ghcr.io/ankimcp/headless-anki:base-v1.4.0
 FROM ${BASE_TAG}
 
 # Anki data with pre-configured profile (skips first-run wizard)
