@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-ARG ANKI_VERSION=26.8.1
+ARG ANKI_VERSION=26.9
 
 RUN apt update && apt install --no-install-recommends -y \
         curl mpv lame locales unzip jq \
@@ -11,6 +11,7 @@ RUN apt update && apt install --no-install-recommends -y \
         libnss3 libxkbcommon0 libxcomposite1 libxdamage1 libxtst6 libxkbfile1 \
         libegl1 libopengl0 libgl1 libwebpdemux2 libwebpmux3 libminizip1 \
         libfontconfig1 libfreetype6 libx11-xcb1 libxi6 libxrender1 libxrandr2 \
+        libglib2.0-0t64 \
         && rm -rf /var/lib/apt/lists/*
 
 # Install uv
@@ -24,7 +25,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US LC_ALL=en_US.UTF-8
 
 # Install Anki
-RUN uv pip install --system aqt==${ANKI_VERSION}
+RUN uv pip install --system "aqt[qt]==${ANKI_VERSION}"
 
 # Create anki user
 RUN useradd -m anki
