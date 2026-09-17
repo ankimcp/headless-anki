@@ -1,7 +1,7 @@
 ARG X11_TAG=ghcr.io/ankimcp/headless-anki:x11-vnc-v1.7.0
 FROM ${X11_TAG}
 
-ARG ANKI_VERSION=26.5
+ARG ANKI_VERSION=26.9.2
 ARG ADDON_IDS=""
 
 # Install addons if specified (version format: 26.5 -> 260500)
