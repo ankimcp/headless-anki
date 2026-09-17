@@ -16,7 +16,7 @@ base (python:3.12-slim + aqt + Qt/X11 deps)
         └── x11-vnc-addons  (addons baked in at build time)
 ```
 
-Each variant's Dockerfile takes a `BASE_TAG` (or `X11_TAG`) ARG defaulting to `ghcr.io/ankimcp/headless-anki:base-v1.6.0`. CI overrides this; locally it uses the default.
+Each variant's Dockerfile takes a `BASE_TAG` (or `X11_TAG`) ARG defaulting to `ghcr.io/ankimcp/headless-anki:base-v1.7.0`. CI overrides this; locally it uses the default.
 
 **qt-vnc vs x11-vnc**: qt-vnc uses Qt's built-in VNC QPA plugin (set via docker-compose env, Dockerfile itself sets `offscreen`). x11-vnc runs a real X server stack (Xvnc → openbox → anki) in `startup.sh`, where Xvnc (TigerVNC) is a single process that is both the X server and the VNC server.
 
@@ -32,11 +32,11 @@ cd qt-vnc && ./run.sh
 
 # Build with addons
 cd x11-vnc-addons
-docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.6.0 .
+docker build --build-arg ADDON_IDS="2055492159" -t headless-anki:addons-v1.7.0 .
 docker compose up
 ```
 
-Version tags are hardcoded to `v1.6.0` in `run.sh` and `docker-compose.yaml` files. When bumping versions, update these across all variant directories.
+Version tags are hardcoded to `v1.7.0` in `run.sh` and `docker-compose.yaml` files. When bumping versions, update these across all variant directories.
 
 ## Releases (CI)
 
