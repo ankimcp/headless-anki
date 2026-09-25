@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-ARG ANKI_VERSION=26.9.2
+ARG ANKI_VERSION=26.9.3
 
 RUN apt update && apt install --no-install-recommends -y \
         curl mpv lame locales unzip jq \

@@ -1,6 +1,6 @@
 services:
   anki:
-    image: headless-anki:qt-vnc-v1.7.0
+    image: headless-anki:qt-vnc-v1.8.0
     volumes:
       - ./data:/data
     ports:

@@ -1,6 +1,6 @@
 services:
   anki:
-    image: headless-anki:addons-v1.7.0
+    image: headless-anki:addons-v1.8.0
     volumes:
       - ./data/prefs21.db:/data/prefs21.db
       # Mount custom addons like this:

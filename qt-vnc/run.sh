@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --no-cache -t headless-anki:qt-vnc-v1.7.0 . && docker compose up
+docker build --no-cache -t headless-anki:qt-vnc-v1.8.0 . && docker compose up
